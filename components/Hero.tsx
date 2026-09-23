@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import SportIconStrip from "./SportIconStrip";
 
 function AmbientBackground({ progress }: { progress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
-  const stripeY = useTransform(progress, [0, 1], [0, 120]);
+  const ringY = useTransform(progress, [0, 1], [0, 90]);
   const fade = useTransform(progress, [0, 0.8], [1, 0]);
 
   return (
@@ -16,14 +16,22 @@ function AmbientBackground({ progress }: { progress: ReturnType<typeof useScroll
     >
       <div className="absolute inset-0 bg-diagonal-lines" />
       <div className="absolute inset-0 bg-grid-subtle opacity-60" />
+
+      {/* corner reticle marks — precision/targeting motif, not decoration */}
+      <div className="absolute top-6 left-6 w-7 h-7 border-t-2 border-l-2 border-border-emphasis" />
+      <div className="absolute top-6 right-6 w-7 h-7 border-t-2 border-r-2 border-border-emphasis" />
+      <div className="absolute bottom-6 left-6 w-7 h-7 border-b-2 border-l-2 border-border-emphasis" />
+      <div className="absolute bottom-6 right-6 w-7 h-7 border-b-2 border-r-2 border-border-emphasis" />
+
+      {/* concentric target rings — echoes PulseRing's language used on the discipline icons */}
       <motion.div
-        style={{ y: stripeY, transform: "skewX(-12deg)" }}
-        className="absolute -top-1/4 -right-1/4 w-[70%] h-[160%] bg-ember/10 border-r-2 border-ember/30"
-      />
-      <div
-        className="absolute -bottom-1/3 -left-1/4 w-[55%] h-[90%] bg-volt/5 border-l-2 border-volt/20"
-        style={{ transform: "skewX(-12deg)" }}
-      />
+        style={{ y: ringY }}
+        className="absolute top-1/4 -right-40 w-[440px] h-[440px] rounded-full border-2 border-ember/25"
+      >
+        <div className="absolute inset-12 rounded-full border border-ember/20" />
+        <div className="absolute inset-24 rounded-full border border-ember/15" />
+      </motion.div>
+      <div className="absolute -bottom-28 -left-28 w-64 h-64 rounded-full border border-volt/15" />
     </motion.div>
   );
 }
