@@ -9,14 +9,19 @@ function AmbientBackground() {
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
       <div className="absolute inset-0 bg-diagonal-lines" />
       <div className="absolute inset-0 bg-grid-subtle opacity-60" />
-      <div
-        className="absolute -top-1/4 -right-1/4 w-[55%] h-[160%] bg-ember/10 border-r-2 border-ember/30"
-        style={{ transform: "skewX(-12deg)" }}
-      />
-      <div
-        className="absolute -bottom-1/3 -left-1/4 w-[40%] h-[90%] bg-volt/5 border-l-2 border-volt/20"
-        style={{ transform: "skewX(-12deg)" }}
-      />
+
+      {/* corner reticle marks — precision/targeting motif, not decoration */}
+      <div className="absolute top-8 left-8 w-7 h-7 border-t-2 border-l-2 border-border-emphasis" />
+      <div className="absolute top-8 right-8 w-7 h-7 border-t-2 border-r-2 border-border-emphasis" />
+      <div className="absolute bottom-8 left-8 w-7 h-7 border-b-2 border-l-2 border-border-emphasis" />
+      <div className="absolute bottom-8 right-8 w-7 h-7 border-b-2 border-r-2 border-border-emphasis" />
+
+      {/* concentric target rings — echoes PulseRing's language used on the discipline icons */}
+      <div className="absolute top-1/4 -right-40 w-[440px] h-[440px] rounded-full border-2 border-ember/25">
+        <div className="absolute inset-12 rounded-full border border-ember/20" />
+        <div className="absolute inset-24 rounded-full border border-ember/15" />
+      </div>
+      <div className="absolute -bottom-28 -left-28 w-64 h-64 rounded-full border border-volt/15" />
     </div>
   );
 }
