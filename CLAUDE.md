@@ -16,6 +16,9 @@ The email form (`components/WaitlistForm.tsx` mobile, `components/scenes/Waitlis
 - **Anti-bot**: a hidden honeypot field (`company`) in both waitlist forms; a filled-in value is silently treated as success without touching the DB.
 - **Required env vars** (see `.env.example`, never commit real values): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (service_role, not anon — server-only), `RATE_LIMIT_SALT`. These must also be set in the Vercel project's environment variables before deploying.
 
+## Consent and privacy (2026-10-29)
+- The form has a required, unticked checkbox: consent to be emailed about the launch and updates, plus the privacy notice at `/privacy` (`app/privacy/page.tsx`, linked from the form and the footer). The API (`app/api/waitlist/route.ts`) rejects a signup without `consent: true` and stores `consent_at` and `consent_version` (`lib/waitlist/consent.ts`; bump the version when the notice or the checkbox text changes). Migration `0002_add_consent.sql` is applied to the live database. Rows created before it have NO recorded consent: do not email them without asking again. Optional server env vars `LEGAL_OPERATOR_NAME` and `LEGAL_CONTACT_EMAIL` override the notice (defaults: "FitFam" and the public contact address).
+
 ## Stack
 - Next.js App Router + TypeScript + Tailwind CSS v4 (`@theme inline` tokens in `app/globals.css`, no `tailwind.config.js`)
 - Fonts: Heebo (headings/numerals) + Assistant (body), via `next/font/google`, loaded in `app/layout.tsx`

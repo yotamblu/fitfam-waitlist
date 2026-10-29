@@ -12,6 +12,7 @@ export function useWaitlistSubmit() {
   const [email, setEmail] = useState("");
   const [favoriteSport, setFavoriteSport] = useState<string | null>(null);
   const [honeypot, setHoneypot] = useState("");
+  const [consent, setConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
 
@@ -24,13 +25,18 @@ export function useWaitlistSubmit() {
       return;
     }
 
+    if (!consent) {
+      setError("צריך לסמן את האישור כדי להצטרף.");
+      return;
+    }
+
     setStatus("submitting");
 
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, favoriteSport, company: honeypot }),
+        body: JSON.stringify({ email, favoriteSport, consent, company: honeypot }),
       });
 
       const data: WaitlistErrorResponse | null = await res.json().catch(() => null);
@@ -55,6 +61,8 @@ export function useWaitlistSubmit() {
     setFavoriteSport,
     honeypot,
     setHoneypot,
+    consent,
+    setConsent,
     error,
     setError,
     status,

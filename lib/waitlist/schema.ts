@@ -11,6 +11,7 @@ export const waitlistSignupSchema = z.object({
     .min(3, "כתובת אימייל לא תקינה.")
     .max(254, "כתובת אימייל ארוכה מדי.")
     .email("כתובת אימייל לא תקינה."),
+  consent: z.literal(true, { message: "צריך לסמן את האישור כדי להצטרף." }),
   favoriteSport: z
     .enum(SPORT_IDS, { message: "ענף לא תקין." })
     .nullable()

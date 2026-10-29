@@ -29,7 +29,10 @@ export default function Footer() {
       </div>
 
       <p className="text-center text-body-sm text-text-muted mt-8">
-        © {new Date().getFullYear()} FitFam
+        © {new Date().getFullYear()} FitFam ·{" "}
+        <a href="/privacy" className="underline hover:text-text-secondary">
+          מדיניות פרטיות
+        </a>
       </p>
     </footer>
   );

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { waitlistSignupSchema } from "@/lib/waitlist/schema";
 import { hashIp, isRateLimited } from "@/lib/waitlist/rateLimit";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { WAITLIST_CONSENT_VERSION } from "@/lib/waitlist/consent";
 
 export const runtime = "nodejs";
 
@@ -63,6 +64,8 @@ export async function POST(req: NextRequest) {
       favorite_sport: favoriteSport ?? null,
       ip_hash: ipHash,
       user_agent: req.headers.get("user-agent")?.slice(0, 500) ?? null,
+      consent_at: new Date().toISOString(),
+      consent_version: WAITLIST_CONSENT_VERSION,
     });
 
     if (error) {

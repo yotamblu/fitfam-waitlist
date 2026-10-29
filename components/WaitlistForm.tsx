@@ -13,6 +13,8 @@ export default function WaitlistForm() {
     setFavoriteSport,
     honeypot,
     setHoneypot,
+    consent,
+    setConsent,
     error,
     setError,
     status,
@@ -137,6 +139,25 @@ export default function WaitlistForm() {
                     ))}
                   </div>
                 </div>
+
+                <label className="mt-5 flex cursor-pointer items-start gap-3 text-right text-body-sm text-text-secondary">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => {
+                      setConsent(e.target.checked);
+                      if (error) setError(null);
+                    }}
+                    className="mt-1 size-4 shrink-0 accent-[#ff5637]"
+                  />
+                  <span>
+                    אני מסכים/ה לקבל מ-FitFam הודעה בדוא״ל על ההשקה ועדכונים, ומאשר/ת את{" "}
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-ember underline">
+                      מדיניות הפרטיות
+                    </a>
+                    . אפשר להסיר את עצמי בכל עת.
+                  </span>
+                </label>
               </motion.form>
             ) : (
               <motion.div
